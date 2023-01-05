@@ -49,7 +49,6 @@ public class PersonneControllerTest {
   @Test
   @WithMockUser(username = "michel@formation.sn", password = "Passer@123", authorities = { "READ" })
   public void helloTest() {
-
     HttpHeaders headers = new HttpHeaders();
     headers.add(HttpHeaders.AUTHORIZATION, "Bearer " + tokenRequest);
     HttpEntity<String> entity = new HttpEntity<String>(null, headers);
@@ -141,7 +140,7 @@ public class PersonneControllerTest {
   @Before
   public void login() throws Exception {
     String body = "{\n" +
-        "    \"username\": \"clara@formation.ca\",\n" +
+        "    \"username\": \"michel@formation.sn\",\n" +
         "    \"password\": \"Passer@123\"\n" +
         "}";
     RequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -152,5 +151,7 @@ public class PersonneControllerTest {
     String token = mvcResult.getResponse().getHeader(HttpHeaders.AUTHORIZATION);
     tokenRequest = token;
   }
+
+
 
 }

@@ -1,5 +1,6 @@
 package com.ca.formation.formationdemo1.services.impl;
 
+
 import com.ca.formation.formationdemo1.exception.ResourceNotFoundException;
 import com.ca.formation.formationdemo1.models.Personne;
 import com.ca.formation.formationdemo1.repositories.PersonneRepository;
@@ -37,6 +38,7 @@ public class PersonneServiceImpl implements PersonneService {
         Personne personne = optionalPersonne.get();
         //todo verifier si l'id est le même que celui qui est dans personne
         //todo setter les valeur qui doivent etre mise à jour
+
         personne.setAge(personneRequest.getAge());
         return personneRepository.save(personne);
     }

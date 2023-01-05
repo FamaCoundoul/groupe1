@@ -1,5 +1,6 @@
 package com.ca.formation.formationdemo1.services.impl;
 
+import com.ca.formation.formationdemo1.dto.UtilisateurDTO;
 import com.ca.formation.formationdemo1.models.Role;
 import com.ca.formation.formationdemo1.models.Utilisateur;
 import com.ca.formation.formationdemo1.repositories.UtilisateurRepository;
@@ -46,7 +47,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
     @Override
-    public Utilisateur login(Utilisateur utilisateurRequest) {
+    public Utilisateur login(UtilisateurDTO utilisateurRequest) {
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(utilisateurRequest.getUsername(), utilisateurRequest.getPassword()));
 

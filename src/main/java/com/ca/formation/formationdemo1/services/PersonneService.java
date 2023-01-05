@@ -1,5 +1,6 @@
 package com.ca.formation.formationdemo1.services;
 
+import com.ca.formation.formationdemo1.dto.PersonneDTO;
 import com.ca.formation.formationdemo1.exception.ResourceNotFoundException;
 import com.ca.formation.formationdemo1.models.Personne;
 

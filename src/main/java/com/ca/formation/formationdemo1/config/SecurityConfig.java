@@ -16,10 +16,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
 import static java.lang.String.format;
 
@@ -29,6 +32,7 @@ import static java.lang.String.format;
         jsr250Enabled = true,
         prePostEnabled = true
 )
+@CrossOrigin("*")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UtilisateurRepository utilisateurRepository;
@@ -48,14 +52,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
         auth.userDetailsService(username -> utilisateurRepository
                 .findByUsername(username)
                 .orElseThrow(
                         () -> new UsernameNotFoundException(
                                 format("utilisateur: %s,  pas trouvé", username)
                         )
-                ));
+                )).passwordEncoder(new BCryptPasswordEncoder());
+
     }
 
     @Override

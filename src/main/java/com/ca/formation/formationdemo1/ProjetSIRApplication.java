@@ -9,10 +9,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @SpringBootApplication
 public class ProjetSIRApplication {
@@ -32,8 +32,8 @@ public class ProjetSIRApplication {
 
   @Bean
   public void addBean() {
-    System.out.println(monApplication);
-    System.out.println(" Démarrage application Spring Boot");
+    Logger.getLogger(monApplication);
+    Logger.getLogger(" Démarrage application Spring Boot");
   }
 
   @Bean
