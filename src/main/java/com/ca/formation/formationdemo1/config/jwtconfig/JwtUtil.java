@@ -2,6 +2,7 @@ package com.ca.formation.formationdemo1.config.jwtconfig;
 
 import com.ca.formation.formationdemo1.models.Utilisateur;
 import io.jsonwebtoken.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +16,8 @@ public class JwtUtil {
     // mettre le jwtSecret= "Base-64"
 
 
-    private static final String JWTSECRET  ="TWV0dHJlIG1vbiB0b2tlbiBlbiBiYXNlIDY0IA==";
+    @Value("${secret.key.JWTSECRET}")
+    private   String JWTSECRET;
 
 
     // generer JWT
@@ -84,5 +86,6 @@ public class JwtUtil {
 
         return false;
     }
+
 
 }

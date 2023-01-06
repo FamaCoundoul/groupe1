@@ -27,6 +27,7 @@ public class ProjetSIRApplication {
   private Environment env;
 
   public static void main(String[] args) {
+
     SpringApplication.run(ProjetSIRApplication.class, args);
   }
 
