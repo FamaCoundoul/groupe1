@@ -1,4 +1,4 @@
-package com.ca.formation.formationdemo1.config.jwtConfig;
+package com.ca.formation.formationdemo1.config.jwtconfig;
 
 import com.ca.formation.formationdemo1.models.Utilisateur;
 import io.jsonwebtoken.*;
@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Component
@@ -14,7 +15,8 @@ public class JwtUtil {
     // mettre le jwtSecret= "Base-64"
 
 
-    private  final String jwtSecret="TWV0dHJlIG1vbiB0b2tlbiBlbiBiYXNlIDY0IA==";
+    private static final String JWTSECRET  ="TWV0dHJlIG1vbiB0b2tlbiBlbiBiYXNlIDY0IA==";
+
 
     // generer JWT
 
@@ -27,7 +29,7 @@ public class JwtUtil {
                 .setIssuer("formation.ca")
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 24 * 60 * 60 *1000))// 1 jour
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .signWith(SignatureAlgorithm.HS512, JWTSECRET)
                 .compact();
     }
 
@@ -38,7 +40,7 @@ public class JwtUtil {
                 .setIssuer("formation.ca")
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 7 * 24 * 60 * 60 *1000))// 1 semaine
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .signWith(SignatureAlgorithm.HS512, JWTSECRET)
                 .compact();
     }
 
@@ -52,7 +54,7 @@ public class JwtUtil {
     // Recuperer les claims
     private Claims getClaims(String token){
         return Jwts.parser()
-                .setSigningKey(jwtSecret)
+                .setSigningKey(JWTSECRET)
                 .parseClaimsJws(token)
                 .getBody();
     }
@@ -66,22 +68,21 @@ public class JwtUtil {
     // Verifier la validité du token
     public boolean validate(String token){
         try{
-            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
+            Jwts.parser().setSigningKey(JWTSECRET).parseClaimsJws(token);
             return true;
         } catch (SignatureException ex){
-            System.out.println("Invalide Signature Jwt - "+ex.getMessage());
+            Logger.getLogger("Invalide Signature Jwt - "+ex.getMessage());
         } catch (ExpiredJwtException ex){
-            System.out.println("Expiration du Jwt - "+ex.getMessage());
+            Logger.getLogger("Expiration du Jwt - "+ex.getMessage());
         }catch (UnsupportedJwtException ex){
-            System.out.println("Token jwt non supporté - "+ex.getMessage());
+            Logger.getLogger("Token jwt non supporté - "+ex.getMessage());
         }catch (IllegalArgumentException ex){
-            System.out.println("Invalide claims Jwt - "+ex.getMessage());
+            Logger.getLogger("Invalide claims Jwt - "+ex.getMessage());
         }catch (MalformedJwtException ex){
-            System.out.println("Token jwt mal formatter - "+ex.getMessage());
+            Logger.getLogger("Token jwt mal formatter - "+ex.getMessage());
         }
 
         return false;
     }
-
 
 }

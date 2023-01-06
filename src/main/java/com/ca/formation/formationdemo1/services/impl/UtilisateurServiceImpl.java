@@ -35,8 +35,8 @@ public class UtilisateurServiceImpl implements UtilisateurService {
             throw new ValidationException("Utilisateur existe deja");
         }
 
-        if(utilisateurRequest.getAuthoritie() == null){
-            utilisateurRequest.setAuthoritie(Set.of(new Role(Role.READ)));
+        if(utilisateurRequest.getAutorisation() == null){
+            utilisateurRequest.setAutorisation(Set.of(new Role(Role.READ)));
         }
 
         Utilisateur utilisateur = utilisateurRequest;
@@ -51,8 +51,6 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(utilisateurRequest.getUsername(), utilisateurRequest.getPassword()));
 
-        Utilisateur utilisateur = (Utilisateur) authentication.getPrincipal();
-
-        return utilisateur;
+        return(Utilisateur) authentication.getPrincipal();
     }
 }

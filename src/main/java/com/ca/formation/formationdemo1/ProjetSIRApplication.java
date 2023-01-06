@@ -47,7 +47,10 @@ public class ProjetSIRApplication {
 
       List<Personne> personneList = repository.findByNomAndPrenom("Abdel", "Moussa");
 
-      personneList.stream().forEach(System.out::println);
+      for (Personne p:personneList
+           ) {
+        Logger.getLogger(p.getNom()+" "+p.getPrenom());
+      }
 
     });
   }

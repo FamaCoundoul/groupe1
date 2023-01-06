@@ -1,11 +1,10 @@
 package com.ca.formation.formationdemo1.models;
 
-import org.springframework.security.core.GrantedAuthority;
+
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,33 +21,24 @@ public class Utilisateur implements UserDetails, Serializable {
     private String name;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    private Set<Role> authoritie = new HashSet<>();
+    private Set<Role> autorisation = new HashSet<>();
 
     public Utilisateur() {
     }
 
-    public Utilisateur(String username, String password, String name, Set<Role> authoritie) {
+    public Utilisateur(String username, String password, String name, Set<Role> authorize) {
         this.username = username;
         this.password = password;
         this.name = name;
-        this.authoritie = authoritie;
+        this.autorisation = authorize;
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public boolean isEnabled() {
         return enabled;
     }
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
 
     public String getUsername() {
         return username;
@@ -56,26 +46,24 @@ public class Utilisateur implements UserDetails, Serializable {
 
     @Override
     public boolean isAccountNonExpired() {
-        return enabled;
+        return isEnabled();
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return enabled;
+        return isEnabled();
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return enabled;
+        return isEnabled();
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authoritie;
+    public Set<Role> getAuthorities() {
+        return getAutorisation();
     }
 
     public String getPassword() {
@@ -90,15 +78,13 @@ public class Utilisateur implements UserDetails, Serializable {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+
+
+    public Set<Role> getAutorisation() {
+        return autorisation;
     }
 
-    public Set<Role> getAuthoritie() {
-        return authoritie;
-    }
-
-    public void setAuthoritie(Set<Role> authoritie) {
-        this.authoritie = authoritie;
+    public void setAutorisation(Set<Role> authorize) {
+        this.autorisation = authorize;
     }
 }

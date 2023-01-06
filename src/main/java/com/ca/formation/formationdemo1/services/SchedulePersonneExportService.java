@@ -3,14 +3,19 @@ package com.ca.formation.formationdemo1.services;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Component;
 
+import java.util.logging.Logger;
+
 @Component
 @EnableAsync
 public class SchedulePersonneExportService {
 
+    private SchedulePersonneExportService() {
+    }
+
     //@Async
     //@Scheduled(fixedDelay = 10000)
-    public void envoyerListePersonnes(){
+    public static void envoyerListePersonnes(){
 
-        System.out.println(" Envoyer la liste des personne - "+System.currentTimeMillis()/1000);
+        Logger.getLogger(" Envoyer la liste des personne - "+System.currentTimeMillis()/1000);
     }
 }

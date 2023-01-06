@@ -1,6 +1,6 @@
 package com.ca.formation.formationdemo1.config;
 
-import com.ca.formation.formationdemo1.config.jwtConfig.JwtFilter;
+import com.ca.formation.formationdemo1.config.jwtconfig.JwtFilter;
 import com.ca.formation.formationdemo1.repositories.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -16,13 +16,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.bind.annotation.CrossOrigin;
-
 
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
+
+import java.util.logging.Logger;
 
 import static java.lang.String.format;
 
@@ -32,7 +30,7 @@ import static java.lang.String.format;
         jsr250Enabled = true,
         prePostEnabled = true
 )
-@CrossOrigin("*")
+
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UtilisateurRepository utilisateurRepository;
@@ -50,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.jwtFilter = jwtFilter;
         SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);
     }
-
+    @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(username -> utilisateurRepository
                 .findByUsername(username)
@@ -79,7 +77,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling()
                         .authenticationEntryPoint(
                                 ((request, response, authException) -> {
-                                    System.out.println("Demande pas autoriser - "+authException.getMessage());
+                                    Logger.getLogger("Demande pas autoriser - "+authException.getMessage());
                                     response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
                                 })
                         )
@@ -107,6 +105,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     // Exposer le bean du authentication manager
     @Bean
+    @Override
     public AuthenticationManager authenticationManagerBean() throws Exception{
         return super.authenticationManagerBean();
     }

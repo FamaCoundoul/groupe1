@@ -36,10 +36,17 @@ public class PersonneServiceImpl implements PersonneService {
             throw new ResourceNotFoundException("Mise à jour impossible ");
         }
         Personne personne = optionalPersonne.get();
-        //todo verifier si l'id est le même que celui qui est dans personne
-        //todo setter les valeur qui doivent etre mise à jour
 
+        Long optionalPersonneId=optionalPersonne.get().getId();
+        Long personneId=personne.getId();
+        boolean perstrue=personneId.equals(optionalPersonneId);
+        if(optionalPersonneId==null && !perstrue){
+
+            throw new ResourceNotFoundException("l'Id n'existe pas");
+        }
         personne.setAge(personneRequest.getAge());
+        personne.setNom(personneRequest.getNom());
+        personne.setPrenom(personneRequest.getPrenom());
         return personneRepository.save(personne);
     }
 

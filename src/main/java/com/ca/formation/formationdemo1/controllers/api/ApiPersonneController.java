@@ -16,7 +16,14 @@ import java.util.List;
 @RequestMapping(value = "/api/v2/personnes")
 public class ApiPersonneController {
 
+    private static String bye="Bye bye";
+    private  static String hello="Bonjour tout le monde";
+    private  static  String ok="OK";
     private final PersonneService personneService;
+
+    private  Personne personneResponse=new Personne();
+
+    private  Personne pers=new Personne();
 
     public ApiPersonneController(PersonneService personneService) {
         this.personneService = personneService;
@@ -32,16 +39,20 @@ public class ApiPersonneController {
      * - GET /api/v1/personnes/search?nom="Jean"
      */
 
-    @PreAuthorize("hasAuthority('"+ Role.ADMIN+"')")
+    @PreAuthorize("hasAuthority('"+ Role.READ+"')")
     @GetMapping("/hello")
     public String hello(){
-        return "Bonjour tout le monde";
+
+
+        return hello;
     }
 
     @PreAuthorize("hasAuthority('"+ Role.READ+"')")
     @GetMapping("/bye")
     public  String byebye(){
-        return "Bye bye";
+
+
+        return bye;
     }
 
     /**
@@ -56,29 +67,28 @@ public class ApiPersonneController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Personne> getPersonne(@PathVariable(value="id") Long id) throws ResourceNotFoundException {
-        Personne personne = personneService.getPersonne(id);
-       return ResponseEntity.ok().body(personne);
+        pers = personneService.getPersonne(id);
+       return ResponseEntity.ok().body(pers);
     }
 
     @PostMapping
     public ResponseEntity<Personne> addPersonne(@RequestBody PersonneDTO personne){
-        Personne p=new Personne();
-        Personne personneResponse = personneService.addPersonne(p);
+        personneResponse = personneService.addPersonne(pers);
         return ResponseEntity.ok().body(personneResponse);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Personne> updatePersonne(@PathVariable(value="id") Long id, @RequestBody PersonneDTO personneRequest ) throws Exception {
-        Personne p=new Personne();
-        Personne personne = personneService.updatePersonne(id, p);
+    public ResponseEntity<Personne> updatePersonne(@PathVariable(value="id") Long id, @RequestBody PersonneDTO personneRequest ) throws ResourceNotFoundException {
 
-        return ResponseEntity.ok().body(personne);
+        personneResponse = personneService.updatePersonne(id,pers);
+
+        return ResponseEntity.ok().body(personneResponse);
     }
 
     @DeleteMapping("/{id}")
     public String deletePersonne(@PathVariable(value="id") Long id){
         personneService.deletePersonne(id);
-        return "OK";
+        return ok;
     }
 
     @GetMapping("/search")

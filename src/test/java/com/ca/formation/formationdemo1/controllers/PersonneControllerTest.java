@@ -1,10 +1,16 @@
 package com.ca.formation.formationdemo1.controllers;
 
+import com.ca.formation.formationdemo1.dto.PersonneDTO;
 import com.ca.formation.formationdemo1.models.Personne;
+import com.ca.formation.formationdemo1.repositories.PersonneRepository;
 import com.ca.formation.formationdemo1.services.PersonneService;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,6 +25,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.ui.Model;
 
 import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -37,6 +44,16 @@ public class PersonneControllerTest {
   @Autowired
   private TestRestTemplate restTemplate;
 
+
+  @InjectMocks
+  PersonneController personneController;
+  @Mock
+  PersonneRepository repository;
+  @Mock
+  Model model;
+
+
+
   @LocalServerPort
   private int port;
 
@@ -51,14 +68,26 @@ public class PersonneControllerTest {
   public void helloTest() {
     HttpHeaders headers = new HttpHeaders();
     headers.add(HttpHeaders.AUTHORIZATION, "Bearer " + tokenRequest);
+    HttpEntity<String> entity = new HttpEntity<String>("Bonjour tout le monde", headers);
+
+    ResponseEntity<String> response = this.restTemplate.exchange("http://localhost:" + port + "/api/v2/personnes/hello",
+        HttpMethod.GET, entity, String.class);
+
+    assertEquals( "Bonjour tout le monde",response.getBody());
+  }
+
+  @Test
+  @WithMockUser(username = "michel@formation.sn", password = "Passer@123", authorities = { "READ" })
+  public void byeTest() {
+    HttpHeaders headers = new HttpHeaders();
+    headers.add(HttpHeaders.AUTHORIZATION, "Bearer " + tokenRequest);
     HttpEntity<String> entity = new HttpEntity<String>(null, headers);
 
     ResponseEntity<String> response = this.restTemplate.exchange("http://localhost:" + port + "/api/v2/personnes/bye",
-        HttpMethod.GET, entity, String.class);
+            HttpMethod.GET, entity, String.class);
 
-    assertEquals(response.getBody(), "Bye bye");
+    assertEquals( "Bye bye",response.getBody());
   }
-
   @Test
   @WithMockUser(username = "michel@formation.sn", password = "Passer@123", authorities = { "READ" })
   public void getPersonnes() throws Exception {
@@ -68,7 +97,8 @@ public class PersonneControllerTest {
         .contentType(MediaType.APPLICATION_JSON);
     MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
     MockHttpServletResponse response = mvcResult.getResponse();
-    assertEquals(HttpStatus.OK.value(), response.getStatus());
+    Assert.assertEquals(HttpStatus.OK.value(), response.getStatus());
+
   }
 
   @Test
@@ -119,6 +149,7 @@ public class PersonneControllerTest {
     ResponseEntity<Personne> responseEntity = restTemplate
         .exchange(getRootUrl() + "/personnes", HttpMethod.POST, entity, Personne.class, personne);
     assertNotNull(responseEntity);
+
   }
 
   @Test
@@ -134,6 +165,7 @@ public class PersonneControllerTest {
 
     System.out.println(contentAsString);
     assertNotNull(contentAsString);
+
 
   }
 
@@ -153,5 +185,30 @@ public class PersonneControllerTest {
   }
 
 
+  @Before
+  public void setUp() {
+    MockitoAnnotations.openMocks(this);
+  }
+
+
+
+  @Test
+  public void testNouveauPersonne() throws Exception {
+    String result = personneController.nouveauPersonne(new PersonneDTO(new Personne("non", "non", 40)));
+    Assert.assertEquals("nouveau", result);
+  }
+
+
+  @Test
+  public void testAjouterPersonne() throws Exception {
+    String result = personneController.ajouterPersonne(new PersonneDTO(new Personne("nom", "prenom", 0)), null);
+    Assert.assertEquals("redirect:/", result);
+  }
+
+  @Test
+  public void testGetPersonnes() throws Exception {
+    String result = personneController.getPersonnes(model);
+    Assert.assertEquals("index", result);
+  }
 
 }
