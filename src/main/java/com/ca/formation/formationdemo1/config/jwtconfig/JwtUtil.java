@@ -16,8 +16,8 @@ public class JwtUtil {
     // mettre le jwtSecret= "Base-64"
 
 
-    @Value("${secret.key.JWTSECRET}")
-    private   String JWTSECRET;
+    @Value("${secret.key.jwtSecret}")
+    private   String jwtSecret;
 
 
     // generer JWT
@@ -31,7 +31,7 @@ public class JwtUtil {
                 .setIssuer("formation.ca")
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 24 * 60 * 60 *1000))// 1 jour
-                .signWith(SignatureAlgorithm.HS512, JWTSECRET)
+                .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
 
@@ -42,7 +42,7 @@ public class JwtUtil {
                 .setIssuer("formation.ca")
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 7 * 24 * 60 * 60 *1000))// 1 semaine
-                .signWith(SignatureAlgorithm.HS512, JWTSECRET)
+                .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
 
@@ -56,7 +56,7 @@ public class JwtUtil {
     // Recuperer les claims
     private Claims getClaims(String token){
         return Jwts.parser()
-                .setSigningKey(JWTSECRET)
+                .setSigningKey(jwtSecret)
                 .parseClaimsJws(token)
                 .getBody();
     }
@@ -70,7 +70,7 @@ public class JwtUtil {
     // Verifier la validité du token
     public boolean validate(String token){
         try{
-            Jwts.parser().setSigningKey(JWTSECRET).parseClaimsJws(token);
+            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
             return true;
         } catch (SignatureException ex){
             Logger.getLogger("Invalide Signature Jwt - "+ex.getMessage());
