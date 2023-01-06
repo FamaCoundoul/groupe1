@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  app:
+    container_name: formation-demo
+    image: formation-demo
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - "8030:8030"
+    depends_on:
+      - mysqldb
+  mysqldb:
+    container_name: formation-demo-db
+    image: mysql
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_DATABASE: mysql
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: fama
+      MYSQL_PASSWORD: pass
