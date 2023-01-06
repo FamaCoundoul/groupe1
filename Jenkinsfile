@@ -16,11 +16,9 @@ pipeline{
             }
         }
         stage("SonarQube analysis") {
-            agent any
                 steps {
-                    withSonarQubeEnv('My SonarQube Server') {
-                        sh 'mvn  sonar:sonar'
-                    }
+                    sh 'mvn sonar:sonar'
+
                 }
        }
     }
