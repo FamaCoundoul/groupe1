@@ -1,5 +1,6 @@
 pipeline{
-    agent {label "docker-build-node"}
+    agent any
+    def app
     tools{
         maven '3.8.7'
     }
@@ -19,7 +20,8 @@ pipeline{
          }*/
         stage('Build'){
             steps{
-                sh 'docker build -t projetsir2022/groupe1:$BUILD_NUMBER .'
+               // sh 'docker build -t projetsir2022/groupe1:$BUILD_NUMBER .'
+                app= docker.build("projetsir2022/groupe1")
 
                 //sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install'
             }
