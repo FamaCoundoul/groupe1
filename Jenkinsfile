@@ -1,5 +1,4 @@
 pipeline{
-    //def app
     agent any
 
     tools{
@@ -14,27 +13,26 @@ pipeline{
                 git branch: 'main', url: 'https://github.com/FamaCoundoul/groupe1.git'
             }
          }
-         /*stage('Test') {
+         stage('Test') {
             steps {
                 sh 'mvn test'
             }
-         }*/
+         }
         stage('Build'){
             steps{
-               sh 'docker build -t projetsir2022/groupe1 .'
-               // app= docker.build("projetsir2022/groupe1")
+               // sh 'docker build -t projetsir2022/groupe1 .'
 
-                //sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install'
+               sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install'
             }
         }
-        stage('login to dockerhub'){
+        /*stage('login to dockerhub'){
                     steps{
                         sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login DOCKERHUB_CREDENTIALS_USR --password-stdin'
 
                         //sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install'
                     }
         }
-      /* stage('Publish') {
+       stage('Publish') {
            steps {
 
                         sh 'docker push projetsir2022/groupe1:$BUILD_NUMBER '
@@ -44,16 +42,17 @@ pipeline{
                    //sh 'docker push formation-demo-groupe1:latest'
                //}
            }
-       }
-      /*  stage('SonarQube analysis') {
+       }*/
+        stage('SonarQube analysis') {
 
             steps{
                     sh 'mvn clean sonar:sonar'
 
             }
-       } */
-       /* stage('Deploy') {
+       }
+        /* stage('Deploy') {
            steps {
+               sh "chmod +x changeTag.sh"
                sh 'kubectl apply -f deployment.yaml'
            }
        } */
