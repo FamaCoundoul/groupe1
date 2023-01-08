@@ -23,9 +23,13 @@ pipeline{
          }
        stage('Publish') {
            steps {
+
+                   withDockerRegistry(credentialsId: "docker-hub",url:""){
+                        sh 'docker push formation-demo-groupe1:latest'
+                   }
                //withCredentials([usernamePassword(credentialsId: 'docker_hub_credentials', usernameVariable: 'projetsir2022', passwordVariable: 'ProjetSir2022')]) {
-                   sh "docker login -u projetsir2022 -p ProjetSir2022"
-                   sh 'docker push formation-demo-groupe1:latest'
+                   //sh "docker login -u projetsir2022 -p ProjetSir2022"
+                   //sh 'docker push formation-demo-groupe1:latest'
                //}
            }
        }
