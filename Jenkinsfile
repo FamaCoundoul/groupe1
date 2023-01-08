@@ -1,5 +1,5 @@
 pipeline{
-    agent any
+    agent {label "docker-build-node"}
     tools{
         maven '3.8.7'
     }
