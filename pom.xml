@@ -126,7 +126,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <sonar.host.url>http://10.153.77.226:9000</sonar.host.url>
+                <sonar.host.url>http://localhost:9000</sonar.host.url>
                 <sonar.login>admin</sonar.login>
                 <sonar.password>admin123</sonar.password>
                 <sonar.java.binaries>target/classes</sonar.java.binaries>
