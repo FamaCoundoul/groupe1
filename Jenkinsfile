@@ -14,7 +14,7 @@ pipeline{
                 sh 'mvn test'
             }
          }
-       stage('Build'){
+       /* stage('Build'){
             steps{
                 sh 'docker build -t formation-demo:latest .'
 
@@ -28,14 +28,19 @@ pipeline{
                    sh 'docker push formation-demo:latest'
                //}
            }
-       }
-       stage('SonarQube analysis') {
+       } */
+      /*  stage('SonarQube analysis') {
 
             steps{
                     sh 'mvn clean sonar:sonar'
 
             }
-       }
+       } */
+       /* stage('Deploy') {
+           steps {
+               sh 'kubectl apply -f deployment.yaml'
+           }
+       } */
 
 
 
