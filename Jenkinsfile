@@ -3,6 +3,9 @@ pipeline{
     tools{
         maven '3.8.7'
     }
+    environment{
+        DOCKERHUB_CREDENTIALS= credentials('docker-hub-jenkins')
+    }
     stages{
        stage('Source'){
             steps{
@@ -16,17 +19,23 @@ pipeline{
          }*/
         stage('Build'){
             steps{
-                sh 'docker build -t formation-demo-groupe1:latest .'
+                sh 'docker build -t projetsir2022/groupe1:$BUILD_NUMBER .'
 
                 //sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install'
             }
-         }
+        }
+        stage('login to dockerhub'){
+                    steps{
+                        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login DOCKERHUB_CREDENTIALS_USR --password-stdin'
+
+                        //sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install'
+                    }
+        }
        stage('Publish') {
            steps {
 
-                   withDockerRegistry(credentialsId: "docker-hub",url:""){
-                        sh 'docker push formation-demo-groupe1:latest'
-                   }
+                        sh 'docker push projetsir2022/groupe1:$BUILD_NUMBER '
+
                //withCredentials([usernamePassword(credentialsId: 'docker_hub_credentials', usernameVariable: 'projetsir2022', passwordVariable: 'ProjetSir2022')]) {
                    //sh "docker login -u projetsir2022 -p ProjetSir2022"
                    //sh 'docker push formation-demo-groupe1:latest'
