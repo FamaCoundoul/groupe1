@@ -15,7 +15,10 @@ pipeline{
             }
          }
        stage('SonarQube analysis') {
-            sh "mvn sonar:sonar"
+
+            steps{
+                sh "mvn sonar:sonar"
+            }
        }
 
 
