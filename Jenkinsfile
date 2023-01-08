@@ -31,7 +31,7 @@ pipeline{
                         //sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install'
                     }
         }
-       stage('Publish') {
+      /* stage('Publish') {
            steps {
 
                         sh 'docker push projetsir2022/groupe1:$BUILD_NUMBER '
