@@ -16,7 +16,7 @@ pipeline{
          }*/
         stage('Build'){
             steps{
-                sh 'docker build -t formation-demo-groupe1:latest'
+                sh 'docker build -t formation-demo-groupe1:latest .'
 
                 //sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install'
             }
