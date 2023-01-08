@@ -21,7 +21,7 @@ pipeline{
          }*/
         stage('Build'){
             steps{
-               sh 'docker build -t projetsir2022/groupe1:$BUILD_NUMBER .'
+               sh 'docker build -t projetsir2022/groupe1 .'
                // app= docker.build("projetsir2022/groupe1")
 
                 //sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install'
