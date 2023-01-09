@@ -33,7 +33,7 @@ pipeline{
 
             steps{
 
-                    bat 'docker build -t projetsir2022/groupe1 '
+               sh 'docker build -t projetsir2022/groupe1 .'
               // sh 'docker build -t projetsir2022/groupe1 .'
             }
         }
