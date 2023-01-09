@@ -26,7 +26,7 @@ pipeline{
         stage('Build docker image'){
             steps{
                 script{
-                    sh 'docekr build -t groupe1/formation-demo1-0.0.1-SNAPSHOT .'
+                    sh 'docker build -t projetsir2022/groupe1 .'
                 }
               // sh 'docker build -t projetsir2022/groupe1 .'
             }
