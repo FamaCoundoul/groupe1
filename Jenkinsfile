@@ -29,7 +29,7 @@ pipeline{
         stage('Build docker image'){
             steps{
                 script{
-                    sh 'docker build -t projetsir2022/groupe1 .'
+                    sh 'docker build -t groupe1 .'
                 }
               // sh 'docker build -t projetsir2022/groupe1 .'
             }
