@@ -18,15 +18,15 @@ pipeline{
                 sh 'mvn test'
             }
          }*/
-        stage('Build'){
+        /*stage('Build'){
             steps{
                sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install'
             }
-        }
+        }*/
         stage('Build docker image'){
             steps{
                 script{
-                    sh 'docekr build -t projetsir2022/groupe1 .'
+                    sh 'docekr build -t groupe1/formation-demo1-0.0.1-SNAPSHOT .'
                 }
               // sh 'docker build -t projetsir2022/groupe1 .'
             }
