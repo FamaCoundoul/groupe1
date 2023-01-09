@@ -34,12 +34,7 @@ pipeline{
 
 
             steps{
-                docker{
-                    sh 'docker build -t projetsir2022/groupe1 .'
-                }
-
-
-
+                    sh 'docker --version'
 
                //sh 'docker build -t projetsir2022/groupe1 .'
               // sh 'docker build -t projetsir2022/groupe1 .'
