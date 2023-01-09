@@ -1,7 +1,5 @@
 pipeline{
-    agent {
-       Dockerfile true
-    }
+    agent any
 
     tools{
         maven '3.8.7'
@@ -43,7 +41,7 @@ pipeline{
               // sh 'docker build -t projetsir2022/groupe1 .'
             }
         }
-        stage('login to dockerhub'){
+       /* stage('login to dockerhub'){
                     steps{
                         sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login DOCKERHUB_CREDENTIALS_USR --password-stdin'
 
