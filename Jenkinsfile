@@ -1,6 +1,3 @@
-#!groovy
-@Library('docker-pipeline') _
-
 pipeline{
     agent any
 
