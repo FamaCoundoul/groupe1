@@ -33,7 +33,7 @@ pipeline{
 
             steps{
 
-               sh 'docker build -t projetsir2022/groupe1:latest .'
+               sh 'docker build -t projetsir2022/projetsir2022:groupe1 .'
               // sh 'docker build -t projetsir2022/groupe1 .'
             }
         }
@@ -51,7 +51,7 @@ pipeline{
 
                withCredentials([usernamePassword(credentialsId: 'docker', usernameVariable: 'projetsir2022', passwordVariable: 'ProjetSir2022')]) {
                    //sh "docker login -u projetsir2022 -p ProjetSir2022"
-                   sh 'docker push projetsir2022/groupe1:latest'
+                   sh 'docker push projetsir2022/projetsir2022:groupe1'
                }
            }
        }
@@ -74,8 +74,17 @@ pipeline{
 
     }
     post {
-        always{
-            sh'docker logout'
+      always {
+        cleanWs()
+        dir("${env.WORKSPACE}@tmp") {
+          deleteDir()
         }
+        dir("${env.WORKSPACE}@script") {
+          deleteDir()
+        }
+        dir("${env.WORKSPACE}@script@tmp") {
+          deleteDir()
+        }
+      }
     }
 }
