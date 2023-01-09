@@ -30,6 +30,9 @@ pipeline{
         }*/
 
         stage('Build docker image'){
+            agent {
+                label 'docker-auth'
+            }
             steps{
 
                script{
