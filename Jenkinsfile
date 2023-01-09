@@ -29,7 +29,7 @@ pipeline{
         stage('Initialize'){
           steps{
             script{
-                def dockerHome = tool 'C:/Program Files/Docker/Docker/resources'
+                def dockerHome = tool 'docker'
                 env.PATH = "${dockerHome}/bin:${env.PATH}"
             }
 
