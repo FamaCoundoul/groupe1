@@ -32,7 +32,10 @@ pipeline{
         stage('Build docker image'){
 
             steps{
-               docker.build('projetsir2022/groupe1 .')
+                script{
+                    docker.build('projetsir2022/groupe1 .')
+                }
+
                //sh 'docker build -t projetsir2022/groupe1 .'
               // sh 'docker build -t projetsir2022/groupe1 .'
             }
