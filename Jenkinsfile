@@ -11,7 +11,7 @@ pipeline{
                 git branch: 'main', url: 'https://github.com/FamaCoundoul/groupe1.git'
             }
          }
-          stage('Maven install') {
+         /* stage('Maven install') {
                      steps {
                          sh 'mvn install'
                      }
@@ -26,6 +26,10 @@ pipeline{
                sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install'
             }
         }*/
+        stage('Initialize'){
+                def dockerHome = tool 'docker'
+                env.PATH = "${dockerHome}/bin:${env.PATH}"
+        }
         stage('Build docker image'){
             steps{
                 script{
