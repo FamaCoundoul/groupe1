@@ -20,10 +20,10 @@ pipeline{
          }*/
         stage('Build'){
             steps{
-                sh 'maven clean install'
+
               // sh 'docker build -t projetsir2022/groupe1 .'
 
-               //sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install'
+               sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install'
             }
         }
         /*stage('login to dockerhub'){
