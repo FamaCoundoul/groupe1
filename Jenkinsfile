@@ -33,7 +33,7 @@ pipeline{
 
             steps{
 
-               sh 'docker build -t projetsir2022/groupe1-bis .'
+               sh 'docker build -t projetsir2022/groupe1:latest .'
               // sh 'docker build -t projetsir2022/groupe1 .'
             }
         }
@@ -43,16 +43,16 @@ pipeline{
 
                         //sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install'
                     }
-        }
+        }*/
        stage('Publish') {
            steps {
 
-                        sh 'docker push projetsir2022/groupe1:latest'
+                       // sh 'docker push projetsir2022/groupe1:latest'
 
-               //withCredentials([usernamePassword(credentialsId: 'docker_hub_credentials', usernameVariable: 'projetsir2022', passwordVariable: 'ProjetSir2022')]) {
+               withCredentials([usernamePassword(credentialsId: 'docker', usernameVariable: 'projetsir2022', passwordVariable: 'ProjetSir2022')]) {
                    //sh "docker login -u projetsir2022 -p ProjetSir2022"
-                   //sh 'docker push formation-demo-groupe1:latest'
-               //}
+                   sh 'docker push projetsir2022/groupe1:latest'
+               }
            }
        }
 
