@@ -4,9 +4,9 @@ pipeline{
     tools{
         maven '3.8.7'
     }
-    environment{
+   /* environment{
         DOCKERHUB_CREDENTIALS=credentials('docker-auth')
-    }
+    }*/
     stages{
        stage('Source'){
             steps{
