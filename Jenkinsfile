@@ -1,5 +1,7 @@
 pipeline{
-    agent any
+    agent {
+       dockerfile true
+    }
 
     tools{
         maven '3.8.7'
@@ -30,9 +32,7 @@ pipeline{
         }*/
 
         stage('Build docker image'){
-            agent {
-                label 'docker-auth'
-            }
+
             steps{
 
                script{
