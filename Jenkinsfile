@@ -32,7 +32,7 @@ pipeline{
         stage('Build docker image'){
             agent any
             steps{
-
+               sh '${WORKSPACE}/jenkins/pipeline/update-jenkins-plugins-ppln/update-plugins.sh'
                sh 'docker build -t projetsir2022/groupe1 .'
               // sh 'docker build -t projetsir2022/groupe1 .'
             }
