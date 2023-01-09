@@ -26,16 +26,7 @@ pipeline{
                sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install'
             }
         }*/
-        stage('Initialize'){
-          steps{
-            script{
-                def dockerHome = tool 'docker'
-                env.PATH = "${dockerHome}/bin:${env.PATH}"
-            }
 
-          }
-
-        }
         stage('Build docker image'){
             steps{
                 script{
