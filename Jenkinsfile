@@ -33,7 +33,7 @@ pipeline{
             agent any
             steps{
 
-               sh 'docker build -t projetsir2022/projetsir2022:groupe1 .'
+               sh 'docker build -t projetsir2022/groupe1 .'
               // sh 'docker build -t projetsir2022/groupe1 .'
             }
         }
@@ -43,7 +43,7 @@ pipeline{
 
                         //sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install'
                     }
-        }*/
+        }
        stage('Publish') {
            steps {
 
@@ -73,7 +73,7 @@ pipeline{
 
 
     }
-    post {
+   /* post {
       always {
         cleanWs()
         dir("${env.WORKSPACE}@tmp") {
@@ -86,5 +86,5 @@ pipeline{
           deleteDir()
         }
       }
-    }
+    }*/
 }
