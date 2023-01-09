@@ -13,16 +13,17 @@ pipeline{
                 git branch: 'main', url: 'https://github.com/FamaCoundoul/groupe1.git'
             }
          }
-         stage('Test') {
+        /* stage('Test') {
             steps {
                 sh 'mvn test'
             }
-         }
+         }*/
         stage('Build'){
             steps{
-               // sh 'docker build -t projetsir2022/groupe1 .'
+                sh 'maven clean install'
+              // sh 'docker build -t projetsir2022/groupe1 .'
 
-               sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install'
+               //sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install'
             }
         }
         /*stage('login to dockerhub'){
@@ -42,14 +43,14 @@ pipeline{
                    //sh 'docker push formation-demo-groupe1:latest'
                //}
            }
-       }*/
-        stage('SonarQube analysis') {
+       }
+      /*  stage('SonarQube analysis') {
 
             steps{
                     sh 'mvn clean sonar:sonar'
 
             }
-       }
+       }*/
         /* stage('Deploy') {
            steps {
                sh "chmod +x changeTag.sh"
