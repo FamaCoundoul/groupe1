@@ -33,7 +33,7 @@ pipeline{
             steps{
 
                script{
-                    sh 'docker build -t projetsir2022/groupe1:latest .'
+                    sh 'docker build -t projetsir2022/groupe1 .'
                }
 
 
