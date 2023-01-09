@@ -30,7 +30,7 @@ pipeline{
         }*/
 
         stage('Build docker image'){
-
+            agent any
             steps{
 
                sh 'docker build -t projetsir2022/projetsir2022:groupe1 .'
