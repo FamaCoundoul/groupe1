@@ -13,6 +13,11 @@ pipeline{
                 git branch: 'main', url: 'https://github.com/FamaCoundoul/groupe1.git'
             }
          }
+          stage('Maven install') {
+                     steps {
+                         sh 'mvn install'
+                     }
+         }
         /* stage('Test') {
             steps {
                 sh 'mvn test'
