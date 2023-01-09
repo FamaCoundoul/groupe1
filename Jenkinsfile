@@ -18,12 +18,7 @@ pipeline{
                          sh 'mvn install'
                      }
          }*/
-         stage('Build') {
-                     steps {
-                         sh 'npm install'
-                         sh 'npm run build'
-                     }
-         }
+
         /* stage('Test') {
             steps {
                 sh 'mvn test'
@@ -37,9 +32,13 @@ pipeline{
 
         stage('Build docker image'){
 
-            steps{
 
+            steps{
+                docker{
                     sh 'docker build -t projetsir2022/groupe1 .'
+                }
+
+
 
 
                //sh 'docker build -t projetsir2022/groupe1 .'
