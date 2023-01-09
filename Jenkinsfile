@@ -1,10 +1,12 @@
 pipeline{
-    agent any
+    agent {label 'Built-In Node'}
 
     tools{
         maven '3.8.7'
     }
-
+    environment{
+        DOCKERHUB_CREDENTIALS=credentialsId('docker-token')
+    }
     stages{
        stage('Source'){
             steps{
@@ -29,12 +31,16 @@ pipeline{
 
         stage('Build docker image'){
             steps{
-                    sh 'docker build -t groupe1 .'
+
+               script{
+                    sh 'docker build -t projetsir2022/groupe1:latest .'
+               }
+
 
               // sh 'docker build -t projetsir2022/groupe1 .'
             }
         }
-        /*stage('login to dockerhub'){
+        stage('login to dockerhub'){
                     steps{
                         sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login DOCKERHUB_CREDENTIALS_USR --password-stdin'
 
@@ -44,7 +50,7 @@ pipeline{
        stage('Publish') {
            steps {
 
-                        sh 'docker push projetsir2022/groupe1:$BUILD_NUMBER '
+                        sh 'docker push projetsir2022/groupe1:latest'
 
                //withCredentials([usernamePassword(credentialsId: 'docker_hub_credentials', usernameVariable: 'projetsir2022', passwordVariable: 'ProjetSir2022')]) {
                    //sh "docker login -u projetsir2022 -p ProjetSir2022"
@@ -52,6 +58,7 @@ pipeline{
                //}
            }
        }
+
       /*  stage('SonarQube analysis') {
 
             steps{
@@ -68,5 +75,10 @@ pipeline{
 
 
 
+    }
+    post {
+        always{
+            sh'docker logout'
+        }
     }
 }
