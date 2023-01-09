@@ -35,8 +35,8 @@ pipeline{
         stage('Build docker image'){
 
             steps{
-
-               sh 'docker build -t projetsir2022/groupe1 .'
+               docker.build('projetsir2022/groupe1 .')
+               //sh 'docker build -t projetsir2022/groupe1 .'
               // sh 'docker build -t projetsir2022/groupe1 .'
             }
         }
