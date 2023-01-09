@@ -32,7 +32,7 @@ pipeline{
         stage('Build docker image'){
             agent any
             steps{
-               sh './update-plugins.sh'
+
                sh 'docker build -t projetsir2022/groupe1 .'
               // sh 'docker build -t projetsir2022/groupe1 .'
             }
@@ -73,7 +73,7 @@ pipeline{
 
 
     }
-   /* post {
+   post {
       always {
         cleanWs()
         dir("${env.WORKSPACE}@tmp") {
@@ -86,5 +86,5 @@ pipeline{
           deleteDir()
         }
       }
-    }*/
+   }
 }
