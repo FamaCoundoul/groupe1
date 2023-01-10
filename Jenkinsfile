@@ -4,9 +4,7 @@ pipeline{
     tools{
         maven '3.8.7'
     }
-   /* environment{
-        DOCKERHUB_CREDENTIALS=credentials('docker-auth')
-    }*/
+
     stages{
        stage('Source'){
             steps{
@@ -30,7 +28,7 @@ pipeline{
             }
         }*/
 
-        stage('Build docker image'){
+       /* stage('Build docker image'){
 
             steps{
                sh 'docker build -t projetsir2022/groupe1 .'
@@ -58,13 +56,13 @@ pipeline{
                     sh 'mvn clean sonar:sonar'
 
             }
-       }
-       /*stage('Deploy') {
+       }*/
+       stage('Deploy') {
            steps {
                sh "chmod +x changeTag.sh"
                sh 'kubectl apply -f deployment.yaml'
            }
-       }*/
+       }
 
 
 
