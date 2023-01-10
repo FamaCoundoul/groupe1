@@ -4,6 +4,10 @@ pipeline{
     tools{
         maven '3.8.7'
     }
+    environment{
+       dockerimagename="projetsir2022/groupe1"
+       dockerImage=""
+    }
 
     stages{
        stage('Source'){
@@ -28,12 +32,14 @@ pipeline{
             }
         }*/
 
-       /* stage('Build docker image'){
+        stage('Build docker image'){
 
             steps{
-               sh 'docker build -t projetsir2022/groupe1 .'
+                script{
+                 dockerImage=docker.build dockerimagename
+                }
             }
-        }
+        }/*
         stage('login to dockerhub'){
                     steps{
                         sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login DOCKERHUB_CREDENTIALS_USR --password-stdin'
@@ -56,7 +62,7 @@ pipeline{
                     sh 'mvn clean sonar:sonar'
 
             }
-       }*/
+       }
        stage('Deploy') {
            steps {
                 script{
@@ -64,7 +70,7 @@ pipeline{
                 }
 
            }
-       }
+       }*/
 
 
 
