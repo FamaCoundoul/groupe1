@@ -59,7 +59,7 @@ pipeline{
        }*/
        stage('Deploy') {
            steps {
-               sh "chmod +x changeTag.sh"
+
                sh 'kubectl apply -f deployment.yaml'
            }
        }
