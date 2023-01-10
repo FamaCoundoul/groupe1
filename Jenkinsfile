@@ -32,15 +32,11 @@ pipeline{
 
         stage('Build docker image'){
 
-
             steps{
-                    sh 'docker --version'
-
-               //sh 'docker build -t projetsir2022/groupe1 .'
-              // sh 'docker build -t projetsir2022/groupe1 .'
+               sh 'docker build -t projetsir2022/groupe1 .'
             }
         }
-       /* stage('login to dockerhub'){
+        stage('login to dockerhub'){
                     steps{
                         sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login DOCKERHUB_CREDENTIALS_USR --password-stdin'
 
@@ -49,29 +45,26 @@ pipeline{
         }
        stage('Publish') {
            steps {
-
-                       // sh 'docker push projetsir2022/groupe1:latest'
-
                withCredentials([usernamePassword(credentialsId: 'docker', usernameVariable: 'projetsir2022', passwordVariable: 'ProjetSir2022')]) {
-                   //sh "docker login -u projetsir2022 -p ProjetSir2022"
+
                    sh 'docker push projetsir2022/projetsir2022:groupe1'
                }
            }
        }
 
-      /*  stage('SonarQube analysis') {
+       stage('SonarQube analysis') {
 
             steps{
                     sh 'mvn clean sonar:sonar'
 
             }
-       }*/
-        /* stage('Deploy') {
+       }
+       /*stage('Deploy') {
            steps {
                sh "chmod +x changeTag.sh"
                sh 'kubectl apply -f deployment.yaml'
            }
-       } */
+       }*/
 
 
 

@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  db:
+    image: mysql:5.7
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+  app:
+    container_name: formation-demo
+    image: formation-demo
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - "8030:8030"
+    environment:
+      DB_URL: jdbc:mysql://db:3307/myapp_db
+      DB_USERNAME: root
+      DB_PASSWORD: example
+    depends_on:
+      - db
